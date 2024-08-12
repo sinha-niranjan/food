@@ -1,16 +1,38 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-const Login = () => {
+function Login() {
+  const router = useRouter();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(credentials);
 
-    setCredentials({ email: "", password: "" });
+    const response = await fetch("api/userLogin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+      }),
+    });
+    const res = await response.json();
+
+    if (res.success) {
+      localStorage.setItem("token", res.authToken);
+      localStorage.setItem("userEmail", credentials.email);
+      localStorage.setItem("isAdmin", await JSON.parse(res.isAdmin));
+
+      router.push("/");
+      //logic for signup
+    } else {
+      alert(res.error);
+    }
+    //logic for login
   };
-
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -79,6 +101,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;

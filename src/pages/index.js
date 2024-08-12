@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import CarouselComponent from "@/components/home/Carousel";
 import Card from "@/components/home/Card";
 // import cardData from "../store/cardData.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { baseUrl } from "@/utils/baseUrl";
 
@@ -21,9 +21,9 @@ export default function Home({ data }) {
   };
 
   handleData();
-  // useEffect(() => {
-  //   localStorage.setItem("isAdmin", false); //added this line here to prevent anyone from accessing /admin if not logged in.
-  // }, []);
+  useEffect(() => {
+    localStorage.setItem("isAdmin", false); //added this line here to prevent anyone from accessing /admin if not logged in.
+  }, []);
 
   categoryArray = [...categories];
 
@@ -96,7 +96,7 @@ export default function Home({ data }) {
                       typeFilter ? typeFilter === foodData.foodType : foodData
                     )
                     ?.map((data) => {
-                      return <Card key={data._id} foodData={data} />;
+                      return <Card key={data.name} foodData={data} />;
                     })}
                 </div>
               </div>
