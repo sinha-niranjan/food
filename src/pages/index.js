@@ -22,7 +22,8 @@ export default function Home({ data }) {
 
   handleData();
   useEffect(() => {
-    localStorage.setItem("isAdmin", false); //added this line here to prevent anyone from accessing /admin if not logged in.
+    if (localStorage.getItem("isAdmin") === true)
+      localStorage.setItem("isAdmin", false); //added this line here to prevent anyone from accessing /admin if not logged in.
   }, []);
 
   categoryArray = [...categories];

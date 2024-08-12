@@ -24,14 +24,12 @@ function Login() {
     if (res.success) {
       localStorage.setItem("token", res.authToken);
       localStorage.setItem("userEmail", credentials.email);
-      localStorage.setItem("isAdmin", await JSON.parse(res.isAdmin));
+      localStorage.setItem("isAdmin", res.isAdmin);
 
       router.push("/");
-      //logic for signup
     } else {
       alert(res.error);
     }
-    //logic for login
   };
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
