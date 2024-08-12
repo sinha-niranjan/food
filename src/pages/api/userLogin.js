@@ -10,6 +10,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     await db.connect();
     const { email, password } = req.body;
+    console.log(email);
     try {
       let user = await Users.findOne({ email });
 
