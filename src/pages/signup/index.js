@@ -20,8 +20,10 @@ function Signup() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name: credentials.name,
         email: credentials.email,
         password: credentials.password,
+        location: credentials.geolocation,
       }),
     });
     const res = await response.json();
